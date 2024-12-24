@@ -29,7 +29,7 @@ public class PuppetControler : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private CharacterController _controller;
     [SerializeField] private float _movementSpeed, _rotationSpeed;
-
+    [SerializeField] private Transform _target;
 
     private Vector2 _movementInput;
     private Vector2 _forwardDirection;
@@ -41,7 +41,8 @@ public class PuppetControler : MonoBehaviour
     void Update()
     {
         Moving();
-        Rotating();
+       // Rotating();
+       LookAtTarget();
         BringArmInPosition(_leftArm, _leftArmPosition,_leftRest,_leftMiddle, _leftHigh);
         BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
         ResettingArms();
@@ -98,6 +99,14 @@ public class PuppetControler : MonoBehaviour
         }
     }
 
+    private void LookAtTarget()
+    {
+        Vector3 lookDirection = _target.position - transform.position;
+        lookDirection.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+    }
 
     private void Moving()
     {
