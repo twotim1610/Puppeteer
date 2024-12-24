@@ -32,20 +32,48 @@ public class PuppetControler : MonoBehaviour
     [SerializeField] private Transform _target;
 
     private Vector2 _movementInput;
-    private Vector2 _forwardDirection;
+    private Vector2 _rotationInput;
 
     private ArmPosition _rightArmPosition, _leftArmPosition;
+
+    [Header("ArmMovement")] 
+    [SerializeField] private float _radius;
+
+    [SerializeField] private float _armSpeed;
+
+    private Vector3 _leftStart, _rightStart, _controlingStart;
+    private Transform _controlingArm;
     void Start()
     {
+        _leftStart = new Vector3(_leftArm.localPosition.x / 2, _leftArm.localPosition.y, _leftArm.localPosition.z);
+        _rightStart = new Vector3(_rightArm.localPosition.x / 2, _rightArm.localPosition.y, _rightArm.localPosition.z);
     }
     void Update()
     {
         
        LookAtTarget();
 
-        BringArmInPosition(_leftArm, _leftArmPosition,_leftRest,_leftMiddle, _leftHigh);
-        BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
-        ResettingArms();
+      //  BringArmInPosition(_leftArm, _leftArmPosition,_leftRest,_leftMiddle, _leftHigh);
+      //  BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
+      //  ResettingArms();
+      MovingArm();
+    }
+
+    private void MovingArm()
+    {
+        if (_controlingArm != null)
+        {
+            _controlingArm.localPosition += new Vector3(_rotationInput.x, 0, _rotationInput.y) * Time.deltaTime* _armSpeed;
+
+            Vector3 distance = _controlingArm.localPosition - _controlingStart;
+            if (distance.magnitude > _radius)
+            {
+                _controlingArm.localPosition = _controlingStart + (distance.normalized*_radius);
+            }
+        }
+
+       
+
     }
 
     void FixedUpdate()
@@ -117,8 +145,8 @@ public class PuppetControler : MonoBehaviour
     public void Rotate(InputAction.CallbackContext context)
     {
         
-        _forwardDirection = context.ReadValue<Vector2>();
-        _forwardDirection = _forwardDirection.normalized;
+        _rotationInput = context.ReadValue<Vector2>();
+        _rotationInput = _rotationInput.normalized;
     }
 
     private float _leftTimeSincePress;
@@ -126,8 +154,10 @@ public class PuppetControler : MonoBehaviour
     {
         if (context.performed)
         {
-            _leftTimeSincePress = 0;
-            _leftArmPosition = _leftArmPosition == ArmPosition.Rest ? ArmPosition.Middle : ArmPosition.High;
+            _controlingArm = _leftArm;
+            _controlingStart = _leftStart;
+            //  _leftTimeSincePress = 0;
+            //  _leftArmPosition = _leftArmPosition == ArmPosition.Rest ? ArmPosition.Middle : ArmPosition.High;
         }
     }
     private float _rightTimeSincePress;
@@ -135,8 +165,10 @@ public class PuppetControler : MonoBehaviour
     {
         if (context.performed)
         {
-            _rightTimeSincePress = 0;
-            _rightArmPosition = _rightArmPosition == ArmPosition.Rest ? ArmPosition.Middle : ArmPosition.High;
+            _controlingArm = _rightArm;
+            _controlingStart = _rightStart;
+          //  _rightTimeSincePress = 0;
+          //  _rightArmPosition = _rightArmPosition == ArmPosition.Rest ? ArmPosition.Middle : ArmPosition.High;
         }
     }
     public void Top(InputAction.CallbackContext context)
