@@ -1115,6 +1115,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &402512121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 402512122}
+  m_Layer: 3
+  m_Name: RightEndSwortAttack (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &402512122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 402512121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0.504, y: -1.299, z: 0.365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 571590261}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1460,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1571660215}
+  - {fileID: 1605046322}
+  - {fileID: 402512122}
   - {fileID: 902468790}
   - {fileID: 557704854}
   - {fileID: 1177035974}
@@ -1505,6 +1538,7 @@ GameObject:
   m_Component:
   - component: {fileID: 612678943}
   - component: {fileID: 612678942}
+  - component: {fileID: 612678944}
   m_Layer: 3
   m_Name: Right Hand Controler
   m_TagString: Untagged
@@ -1554,6 +1588,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1382311834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &612678944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612678941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106777fc18a897943aca1172226d313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackTime: 1
+  _rotationTime: 0.75
+  _hand: {fileID: 612678943}
+  _endPosition: {fileID: 402512122}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,6 +2002,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1322493769}
   - component: {fileID: 1322493768}
+  - component: {fileID: 1322493770}
   m_Layer: 3
   m_Name: Left Hand Controler
   m_TagString: Untagged
@@ -2001,6 +2052,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1382311834}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322493770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322493767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 106777fc18a897943aca1172226d313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackTime: 1
+  _rotationTime: 0.75
+  _hand: {fileID: 1322493769}
+  _endPosition: {fileID: 1605046322}
 --- !u!1 &1322548492 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: 108ff5afc913be94aa10682ec654064f, type: 3}
@@ -2293,6 +2360,8 @@ MonoBehaviour:
   _movementSpeed: 5
   _rotationSpeed: 300
   _target: {fileID: 1678678435}
+  _leftAction: {fileID: 1322493770}
+  _rightAction: {fileID: 612678944}
 --- !u!114 &1382311836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2454,6 +2523,38 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1382311835}
+        m_TargetAssemblyTypeName: PuppetControler, Assembly-CSharp
+        m_MethodName: RightTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bf27ed6e-224d-4f8e-af19-9e161a4c8446
+    m_ActionName: 'Player/RightTrigger[/XInputControllerWindows/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1382311835}
+        m_TargetAssemblyTypeName: PuppetControler, Assembly-CSharp
+        m_MethodName: LeftTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9319c6c6-2c9b-4a3e-9227-945b09a8d953
+    m_ActionName: 'Player/LeftTrigger[/XInputControllerWindows/leftTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2515,6 +2616,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 571590261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1605046321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1605046322}
+  m_Layer: 3
+  m_Name: LeftEndSwortAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1605046322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605046321}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.464, y: -1.299, z: 0.365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 571590261}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1678678431
 GameObject:
   m_ObjectHideFlags: 0

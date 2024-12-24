@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,17 +36,32 @@ public class PuppetControler : MonoBehaviour
     private Vector2 _forwardDirection;
 
     private ArmPosition _rightArmPosition, _leftArmPosition;
+
+    [Header("Actions")] [SerializeField] private Action _leftAction;
+    [SerializeField] private Action _rightAction;
     void Start()
     {
+        _leftAction.OnActionEnd += EndingAction;
+        _rightAction.OnActionEnd += EndingAction;
     }
+
+    private void EndingAction(object sender, EventArgs e)
+    {
+        _isInAction = false;
+    }
+
     void Update()
     {
         
        LookAtTarget();
 
-        BringArmInPosition(_leftArm, _leftArmPosition,_leftRest,_leftMiddle, _leftHigh);
-        BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
-        ResettingArms();
+       if (!_isInAction)
+       {
+           BringArmInPosition(_leftArm, _leftArmPosition, _leftRest, _leftMiddle, _leftHigh);
+           BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
+           ResettingArms();
+        }
+
     }
 
     void FixedUpdate()
@@ -210,6 +226,34 @@ public class PuppetControler : MonoBehaviour
 
         _isJumping = false;
 
+    }
+
+    private bool _isInAction;
+    public void RightTrigger(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (!_isInAction)
+            {
+                _isInAction = true;
+                _rightAction.StartAction(_rightArm,_rightArmPosition);
+                _rightArmPosition = ArmPosition.Rest;
+            }
+        }
+    }
+
+    public void LeftTrigger(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (!_isInAction)
+            {
+                _isInAction = true;
+             
+                _leftAction.StartAction(_leftArm, _leftArmPosition);
+                _leftArmPosition = ArmPosition.Rest;
+            }
+        }
     }
 
 }
