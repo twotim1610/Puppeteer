@@ -40,12 +40,17 @@ public class PuppetControler : MonoBehaviour
     }
     void Update()
     {
-        Moving();
-       // Rotating();
+        
        LookAtTarget();
+
         BringArmInPosition(_leftArm, _leftArmPosition,_leftRest,_leftMiddle, _leftHigh);
         BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
         ResettingArms();
+    }
+
+    void FixedUpdate()
+    {
+        Moving();
     }
 
     private void ResettingArms()
@@ -86,19 +91,6 @@ public class PuppetControler : MonoBehaviour
 
     }
 
-    private void Rotating()
-    {
-        if (_forwardDirection != Vector2.zero)
-        {
-            Vector3 lookdirection = new Vector3(_forwardDirection.x, 0, _forwardDirection.y);
-            Quaternion targetRotation = Quaternion.LookRotation(lookdirection);
-
-            // Use Quaternion.RotateTowards for smooth and shortest path rotation
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
-
-        }
-    }
-
     private void LookAtTarget()
     {
         Vector3 lookDirection = _target.position - transform.position;
@@ -110,7 +102,10 @@ public class PuppetControler : MonoBehaviour
 
     private void Moving()
     {
+
         Vector3 movement = new Vector3(_movementInput.x, 0, _movementInput.y);
+        movement =  transform.localToWorldMatrix * movement;
+
         _controller.Move(movement * Time.deltaTime * _movementSpeed);
     }
 
