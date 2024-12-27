@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-public class Action:MonoBehaviour
+public class EventArgs:MonoBehaviour
 {
     public event EventHandler OnActionEnd;
     public event EventHandler LoseControl;
@@ -16,11 +16,11 @@ public class Action:MonoBehaviour
 
     protected void EndingAction()
     {
-        OnActionEnd?.Invoke(this, EventArgs.Empty);
+        OnActionEnd?.Invoke(this, System.EventArgs.Empty);
     }
 
     protected void LosingControl()
     {
-        LoseControl?.Invoke(this,EventArgs.Empty);
+        LoseControl?.Invoke(this, System.EventArgs.Empty);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SwordAttack : Action
+public class SwordAttack : EventArgs
 {
     [SerializeField] private float _attackTime;
     [SerializeField] private Transform _animationHieght, _endPosition;

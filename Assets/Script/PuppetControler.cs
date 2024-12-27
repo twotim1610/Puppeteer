@@ -37,15 +37,15 @@ public class PuppetControler : MonoBehaviour
 
     private ArmPosition _rightArmPosition, _leftArmPosition;
 
-    [Header("Actions")] [SerializeField] private Action _leftAction;
-    [SerializeField] private Action _rightAction;
+    [Header("Actions")] [SerializeField] private EventArgs _leftAction;
+    [SerializeField] private EventArgs _rightAction;
     void Start()
     {
         _leftAction.OnActionEnd += EndingAction;
         _rightAction.OnActionEnd += EndingAction;
     }
 
-    private void EndingAction(object sender, EventArgs e)
+    private void EndingAction(object sender, System.EventArgs e)
     {
         _isInAction = false;
     }
