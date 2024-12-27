@@ -5,43 +5,31 @@ using UnityEngine;
 
 public class SwordAttack : Action
 {
-    [SerializeField] private float _attackTime, _rotationTime;
-    [SerializeField] private Transform _hand, _endPosition;
-    
+    [SerializeField] private float _attackTime;
+    [SerializeField] private Transform _animationHieght, _endPosition;
+    [SerializeField] private Animator _animator;
 
     public override void StartAction(Transform armStart, ArmPosition position)
     {
         base.StartAction(armStart,position);
-        StartCoroutine(MovingSword());
-        StartCoroutine(RotatingSword());
-    }
-
-    IEnumerator RotatingSword()
-    {
-        float t = 0;
-        while (t <= _rotationTime)
+        if (_animator != null)
         {
-            t += Time.deltaTime;
-            _hand.localRotation = Quaternion.Lerp(ArmStart.localRotation, _endPosition.localRotation, t / _rotationTime);
-            yield return null;
+            _animationHieght.localPosition = new Vector3(0, armStart.localPosition.y, 0);
+            _animator.enabled = true;
+            _animator.SetTrigger("Attack");
+            StartCoroutine(WaitForEndOfAnimation());
         }
     }
 
-    IEnumerator MovingSword()
+    IEnumerator WaitForEndOfAnimation()
     {
-        float t = 0;
-        Vector3 endPosition = new Vector3(_endPosition.localPosition.x, ArmStart.localPosition.y, _endPosition.localPosition.z);
+        yield return new WaitForSeconds(_attackTime);
+        _animator.enabled = false;
+        transform.localPosition = _endPosition.localPosition;
+        transform.localRotation = _endPosition.localRotation;
+        _animationHieght.localPosition = Vector3.zero;
 
-        while (t <= _attackTime)
-        {
-            t += Time.deltaTime;
-            float progress = Mathf.Clamp01(t / _attackTime);
-            float exponentialValue = Mathf.Pow(progress, 2);
-            _hand.localPosition = Vector3.Lerp(ArmStart.localPosition, endPosition, exponentialValue);
-            yield return null;
-        }
         EndingAction();
-
     }
 
 }
