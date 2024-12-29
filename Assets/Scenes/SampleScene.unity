@@ -173,7 +173,7 @@ MonoBehaviour:
   stiffness: 350
   damping: 15
   ropeLength: 0.01
-  ropeWidth: 0.05
+  ropeWidth: 0.075
   midPointWeight: 1
   midPointPosition: 0.5
 --- !u!120 &9394300
@@ -241,7 +241,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -250,7 +250,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -404,6 +404,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controler: {fileID: 176454602}
+  _rope: {fileID: 9394299}
+  _startWith: 0.075
+  _endWith: 0
+  _hp: 2
 --- !u!54 &216103023
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1272,6 +1276,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controler: {fileID: 1759788530}
+  _rope: {fileID: 1683858575}
+  _startWith: 0.075
+  _endWith: 0
+  _hp: 2
 --- !u!54 &892763883
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1407,7 +1415,7 @@ MonoBehaviour:
   stiffness: 350
   damping: 14.2
   ropeLength: 0.01
-  ropeWidth: 0.05
+  ropeWidth: 0.075
   midPointWeight: 1
   midPointPosition: 0.5
 --- !u!120 &982544883
@@ -1475,7 +1483,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1484,7 +1492,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1963,7 +1971,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4720458374006313479, guid: a7fe926da4e4ee04c8abe9bc343d0c8d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 803848901638273861, guid: a7fe926da4e4ee04c8abe9bc343d0c8d, type: 3}
@@ -2040,6 +2049,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controler: {fileID: 92425793}
+  _rope: {fileID: 982544882}
+  _startWith: 0.075
+  _endWith: 0
+  _hp: 2
 --- !u!54 &1482641784
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2174,7 +2187,7 @@ MonoBehaviour:
   stiffness: 350
   damping: 15
   ropeLength: 7.94
-  ropeWidth: 0.05
+  ropeWidth: 0.075
   midPointWeight: 1
   midPointPosition: 0.5
 --- !u!120 &1683858576
@@ -2242,7 +2255,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2251,7 +2264,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2366,7 +2379,7 @@ MonoBehaviour:
   stiffness: 350
   damping: 15
   ropeLength: 0.01
-  ropeWidth: 0.05
+  ropeWidth: 0.075
   midPointWeight: 1
   midPointPosition: 0.5
 --- !u!120 &1787139000
@@ -2434,7 +2447,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2443,7 +2456,7 @@ LineRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.05
+        value: 0.075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -2617,6 +2630,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controler: {fileID: 1451806787}
+  _rope: {fileID: 1787138999}
+  _startWith: 0.075
+  _endWith: 0
+  _hp: 2
 --- !u!54 &1977547410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2685,9 +2702,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4342591230980959947, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: ropeWidth
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596799294415276577, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: ropeWidth
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147119294893191360, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147119294893191360, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 5225331712661517528, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
       propertyPath: m_TagString
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6133594693617026138, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: ropeWidth
+      value: 0.075
       objectReference: {fileID: 0}
     - target: {fileID: 6718892994525090148, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2729,6 +2766,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7067933451667896543, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7067933451667896543, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272536905929371492, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 7272536905929371492, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 7528255302171797172, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2737,6 +2790,18 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 771562830}
+    - target: {fileID: 8396501771150603546, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: ropeWidth
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 9166043108110856234, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 9166043108110856234, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.075
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6211526531276085600, guid: 146cde1866e19f948aea73ceeefff250, type: 3}
     - {fileID: 3245003604253615941, guid: 146cde1866e19f948aea73ceeefff250, type: 3}

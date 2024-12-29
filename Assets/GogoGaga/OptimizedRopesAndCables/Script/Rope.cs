@@ -104,7 +104,12 @@ namespace GogoGaga.OptimizedRopesAndCables
             }
         }
 
-        private void InitializeLineRenderer()
+        public void Disapear()
+        {
+            lineRenderer.enabled = false;
+        }
+
+        public void InitializeLineRenderer()
         {
             if (!lineRenderer)
             {
