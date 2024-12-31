@@ -1119,9 +1119,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackTime: 0.6
+  _swordActivationTime: 0
   _animationHieght: {fileID: 5823531224627841086}
   _endPosition: {fileID: 7387444858220149427}
   _animator: {fileID: 694880968678188843}
+  _sword: {fileID: 0}
 --- !u!95 &694880968678188843
 Animator:
   serializedVersion: 7
