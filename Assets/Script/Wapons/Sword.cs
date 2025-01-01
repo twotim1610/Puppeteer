@@ -3,7 +3,21 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Sword : MonoBehaviour
 {
-    public bool Active { get; set; }
+    [SerializeField] private bool _isPhysicsSword;
+    [SerializeField] private GameObject _physicsSword;
+    private bool _active;
+
+    public bool Active
+    {
+        get
+        {
+           return _isPhysicsSword ? true : _active;
+        }
+        set
+        {
+           _active = value;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,6 +26,13 @@ public class Sword : MonoBehaviour
             Active = false;
         }
     }
+
+    private void OnDisable()
+    {
+        if(!_isPhysicsSword && _physicsSword!= null)
+            _physicsSword.SetActive(true);
+    }
+
 
 
 }

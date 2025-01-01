@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -18,6 +19,8 @@ public class BossControler : MonoBehaviour
     [Header("Actions")]
     [SerializeField] private BossAction[] _actions;
 
+    [SerializeField] private float _actionDelay;
+
     [Header("Ropes")] [SerializeField] private RopeStates _ropeStates;
 
     private bool _isInAction;
@@ -31,9 +34,14 @@ public class BossControler : MonoBehaviour
 
     private void OnEndOfAction(object sender, System.EventArgs eventArgs)
     {
+        StartCoroutine(InbetweenActionDelay());
+    }
+
+    IEnumerator InbetweenActionDelay()
+    {
+        yield return new WaitForSeconds(_actionDelay);
         _isInAction = false;
     }
-   
     void Update()
     {
         if (!_isInAction)
@@ -59,6 +67,7 @@ public class BossControler : MonoBehaviour
             if (action.ConditionsAreMet(_player.position, _playerRopes, _ropeStates, transform.position))
             {
                 _isInAction = true;
+                return;
             }
         }
     }
@@ -66,20 +75,19 @@ public class BossControler : MonoBehaviour
     private BossAction[] RandomizeActions(BossAction[] actions)
     {
         List<int> l = Enumerable.Range(0, actions.Length).ToList();
-        BossAction[] randomizeActions = new BossAction[l.Count];
+        BossAction[] randomizedActions = new BossAction[l.Count];
+        System.Random random = new System.Random();
 
-        for (int i = 0; i < randomizeActions.Length; i++)
+        for (int i = 0; i < randomizedActions.Length; i++)
         {
-
-            int random = Random.Range(0, l.Count-1);
-
-            randomizeActions[i] = actions[l[random]];
-            l.RemoveAt(random);
+            int randomIndex = random.Next(0, l.Count); // Corrected range
+            randomizedActions[i] = actions[l[randomIndex]];
+            l.RemoveAt(randomIndex);
         }
 
-        return randomizeActions;
-
+        return randomizedActions;
     }
+
 
     private void LookAtPlayer()
     {

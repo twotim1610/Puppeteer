@@ -28,7 +28,7 @@ public class Rope : MonoBehaviour
             Sword sword = other.GetComponent<Sword>();
             if (sword != null && sword.Active)
             {
-               
+                sword.Active = false;
                 _hp--;
                 float with = Mathf.Lerp(_startWith, _endWith, Mathf.Clamp01((float)_hp / _maxHP));
                 _rope.ropeWidth = with;

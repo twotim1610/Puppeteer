@@ -2364,6 +2364,7 @@ MonoBehaviour:
   _movementControler: {fileID: 0}
   _actions:
   - {fileID: 7718459693463607546}
+  _actionDelay: 0
   _ropeStates: {fileID: 848349887290455409}
 --- !u!1 &9173940339774560570
 GameObject:
