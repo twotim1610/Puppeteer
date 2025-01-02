@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PuppetControler : MonoBehaviour
 {
     
@@ -20,7 +21,8 @@ public class PuppetControler : MonoBehaviour
 
     [Header("Ducking")]
     [SerializeField] private float _duckDistance;
-    [SerializeField] private float _duckingTime, _duckingSpeed;
+
+    [SerializeField] private float _duckingTime,_duckingSpeed;
     private bool _isDucked;
 
     [Header("Jumping")] [SerializeField] private float _jumbDistance;
@@ -55,7 +57,7 @@ public class PuppetControler : MonoBehaviour
         
        LookAtTarget();
 
-       if (!_isInAction)
+       if (!_isInAction && !_isDucked)
        {
            BringArmInPosition(_leftArm, _leftArmPosition, _leftRest, _leftMiddle, _leftHigh);
            BringArmInPosition(_rightArm, _rightArmPosition, _rightRest, _rightMiddle, _rightHigh);
@@ -170,26 +172,38 @@ public class PuppetControler : MonoBehaviour
     IEnumerator Ducking()
     {
         float ellapsedTime = 0;
-        Vector3 start = _head.localPosition;
-        Vector3 end = _head.localPosition - Vector3.down * _duckDistance;
-
-        while (ellapsedTime < _duckingTime)
+        float uphead =_head.localPosition.y;
+        float upRight = _rightArm.localPosition.y;
+        float upLeft = _leftArm.localPosition.y;
+        while (_head.localPosition.y > uphead-_duckDistance)
         {
             ellapsedTime += Time.deltaTime;
-            _head.localPosition = Vector3.Lerp(start, end, ellapsedTime * _duckingSpeed);
+            _head.localPosition =  LerpYPosition(_head.localPosition, uphead, uphead-_duckDistance, ellapsedTime*_duckingSpeed);
+            _rightArm.localPosition = LerpYPosition(_rightArm.localPosition, upRight, upRight - _duckDistance, ellapsedTime * _duckingSpeed);
+            _leftArm.localPosition = LerpYPosition(_leftArm.localPosition, upLeft, upLeft - _duckDistance, ellapsedTime * _duckingSpeed);
             yield return null;
         }
 
+        yield return new WaitForSeconds(_duckingTime);
+
         ellapsedTime = 0;
-        while (_head.localPosition != start)
+        while (_head.localPosition.y < uphead)
         {
             ellapsedTime += Time.deltaTime;
-            _head.localPosition = Vector3.Lerp(end, start, ellapsedTime * _duckingSpeed);
+            _head.localPosition = LerpYPosition(_head.localPosition, uphead - _duckDistance, uphead, ellapsedTime * _duckingSpeed);
+            _rightArm.localPosition = LerpYPosition(_rightArm.localPosition, upRight - _duckDistance, upRight , ellapsedTime * _duckingSpeed);
+            _leftArm.localPosition = LerpYPosition(_leftArm.localPosition, upLeft - _duckDistance, upLeft , ellapsedTime * _duckingSpeed);
             yield return null;
         }
 
         _isDucked = false;
 
+    }
+
+    private Vector3 LerpYPosition(Vector3 transformPosition, float downPosition, float upPosition, float ellapsedTime)
+    {
+        transformPosition.y = Mathf.Lerp(downPosition, upPosition,Mathf.Clamp01( ellapsedTime));
+        return transformPosition;
     }
 
     public void Down(InputAction.CallbackContext context)
