@@ -2242,6 +2242,7 @@ MonoBehaviour:
   _shopDistance: 1.5
   _swordActivationTime: 0
   _sword: {fileID: 0}
+  _aria: {fileID: 0}
 --- !u!1 &8994138118682989589
 GameObject:
   m_ObjectHideFlags: 0

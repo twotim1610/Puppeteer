@@ -29,36 +29,39 @@ public class Rope : MonoBehaviour
             if (sword != null && sword.Active)
             {
                 sword.Active = false;
-                _hp--;
-                float with = Mathf.Lerp(_startWith, _endWith, Mathf.Clamp01((float)_hp / _maxHP));
-                _rope.ropeWidth = with;
-                _rope.InitializeLineRenderer();
-                if (_hp <= 0)
-                {
-                    _rope.Disapear();
-                    _controler.SetActive(false);
-                    switch (_connection)
-                    {
-                        case Connection.Left:
-                            _state.Left = false;
-                            break;
-                        case Connection.Right:
-                            _state.Right = false;
-                            break;
-                        case Connection.Up:
-                            _state.Top = false;
-                            break;
-                        case Connection.Down:
-                            _state.Bottom = false;
-                            break;
-                    }
-
-                }
-
-
+                TakeDamage();
             }
         }
 
+    }
+
+    public void TakeDamage()
+    {
+        _hp--;
+        float with = Mathf.Lerp(_startWith, _endWith, Mathf.Clamp01((float)_hp / _maxHP));
+        _rope.ropeWidth = with;
+        _rope.InitializeLineRenderer();
+        if (_hp <= 0)
+        {
+            _rope.Disapear();
+            _controler.SetActive(false);
+            switch (_connection)
+            {
+                case Connection.Left:
+                    _state.Left = false;
+                    break;
+                case Connection.Right:
+                    _state.Right = false;
+                    break;
+                case Connection.Up:
+                    _state.Top = false;
+                    break;
+                case Connection.Down:
+                    _state.Bottom = false;
+                    break;
+            }
+
+        }
     }
 
     public enum Connection
