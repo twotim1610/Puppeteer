@@ -13,7 +13,7 @@ public class SwordAttack : EventArgs
     public override void StartAction(Transform armStart, ArmPosition position)
     {
         base.StartAction(armStart,position);
-        if (_animator != null)
+        if (_animator != null && gameObject.activeSelf)
         {
             
             _animationHieght.localPosition = new Vector3(0, armStart.localPosition.y, 0);

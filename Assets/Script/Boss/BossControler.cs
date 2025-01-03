@@ -23,6 +23,13 @@ public class BossControler : MonoBehaviour
 
     [Header("Ropes")] [SerializeField] private RopeStates _ropeStates;
 
+    [Header("HeadButt")]
+    [SerializeField] private Headbutt _headbutt;
+
+    [SerializeField] private float _freezeTime;
+    private bool _isFrozen;
+    [SerializeField] private Animator _animator;
+
     private bool _isInAction;
     void Start()
     {
@@ -30,6 +37,22 @@ public class BossControler : MonoBehaviour
         {
             bossAction.EndOfAction += OnEndOfAction;
         }
+
+        _headbutt.OnHeadbutt += OnHeadbutted;
+    }
+
+    private void OnHeadbutted(object sender, System.EventArgs e)
+    {
+        _animator.enabled = false;
+        _isFrozen = true;
+        StartCoroutine(FreezeTime());
+    }
+
+    IEnumerator FreezeTime()
+    {
+        yield return new WaitForSeconds(_freezeTime);
+        _isFrozen = false;
+        _animator.enabled = true;
     }
 
     private void OnEndOfAction(object sender, System.EventArgs eventArgs)
@@ -44,16 +67,20 @@ public class BossControler : MonoBehaviour
     }
     void Update()
     {
-        if (!_isInAction)
+        if (!_isFrozen)
         {
-            ChoseAction();
+            if (!_isInAction)
+            {
+                ChoseAction();
+            }
+            LookAtPlayer();
         }
-        LookAtPlayer();
+
     }
 
     void FixedUpdate()
     {
-        if (!_isInAction)
+        if (!_isInAction && !_isFrozen)
         {
             MovingToPlayer();
         }

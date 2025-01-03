@@ -2366,6 +2366,9 @@ MonoBehaviour:
   - {fileID: 7718459693463607546}
   _actionDelay: 0
   _ropeStates: {fileID: 848349887290455409}
+  _headbutt: {fileID: 0}
+  _freezeTime: 0
+  _animator: {fileID: 0}
 --- !u!1 &9173940339774560570
 GameObject:
   m_ObjectHideFlags: 0

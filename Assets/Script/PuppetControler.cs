@@ -22,8 +22,14 @@ public class PuppetControler : MonoBehaviour
     [Header("Ducking")]
     [SerializeField] private float _duckDistance;
 
-    [SerializeField] private float _duckingTime,_duckingSpeed;
+    [SerializeField] private float _duckingTime,_duckingSpeed, _duckRotationSpeed;
     private bool _isDucked;
+
+    [Header("HeadButt")]
+    [SerializeField] private Transform _buttEnd;
+    [SerializeField] private float _buttingTransitionTime, _buttingTime;
+    [SerializeField] private Headbutt _headbutt;
+   
 
     [Header("Jumping")] [SerializeField] private float _jumbDistance;
     [SerializeField] private float _jumbTime, _jumbSpeed;
@@ -68,7 +74,8 @@ public class PuppetControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        Moving();
+        if(!_isDucked)
+            Moving();
     }
 
     private void ResettingArms()
@@ -163,11 +170,47 @@ public class PuppetControler : MonoBehaviour
         {
             if (!_isDucked)
             {
-                StartCoroutine(Ducking());
+                //StartCoroutine(Ducking());
+                StartCoroutine(HeadButt());
                 _isDucked = true;
             }
         }
     }
+
+    IEnumerator HeadButt()
+    {
+        _headbutt.IsHeadbutting =true;
+        float ellapsedTime = 0;
+        Vector3 startPosition = _head.localPosition;
+        Quaternion startRotation = _head.localRotation;
+        while (_head.localPosition != _buttEnd.localPosition)
+        {
+            ellapsedTime += Time.deltaTime;
+            _head.localPosition = Vector3.Lerp(startPosition, _buttEnd.localPosition, Mathf.Clamp01( ellapsedTime/_buttingTransitionTime));
+            _head.localRotation = Quaternion.Lerp(startRotation, _buttEnd.localRotation, Mathf.Clamp01(ellapsedTime / _buttingTransitionTime));
+            yield return null;
+        }
+
+        ellapsedTime = 0;
+        while (ellapsedTime <= _buttingTime)
+        {
+            ellapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        ellapsedTime = 0;
+        while (_head.localPosition != startPosition)
+        {
+            ellapsedTime += Time.deltaTime;
+            _head.localPosition = Vector3.Lerp(_buttEnd.localPosition, startPosition, Mathf.Clamp01(ellapsedTime / _buttingTransitionTime));
+            _head.localRotation = Quaternion.Lerp(_buttEnd.localRotation,startRotation, Mathf.Clamp01(ellapsedTime / _buttingTransitionTime));
+            yield return null;
+        }
+        _isDucked =false;
+
+
+    }
+
 
     IEnumerator Ducking()
     {

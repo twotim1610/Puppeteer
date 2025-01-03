@@ -2118,6 +2118,11 @@ MonoBehaviour:
   _duckDistance: -0.5
   _duckingTime: 1.5
   _duckingSpeed: 3
+  _duckRotationSpeed: 0
+  _buttEnd: {fileID: 0}
+  _buttingTransitionTime: 0
+  _buttingTime: 0
+  _headbutt: {fileID: 0}
   _jumbDistance: -0.5
   _jumbTime: 0.5
   _jumbSpeed: 6
